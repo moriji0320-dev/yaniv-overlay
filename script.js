@@ -1,6 +1,8 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbwMVH-JIdPPcbwwd8yWdtzf7B3Pqt8h3amUtPn_ZRDoNrwKsY-fIvxAxHLUlRV1dc7FfQ/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwP5Azyzue0baV-kpVFih8j8KQvqgMOfIcqNT7tmVJtTYoSH08spQJOSnFXQfNEiTpXww/exec";
 
 async function loadScores() {
+  const tbody = document.querySelector("#scoreTable tbody");
+
   try {
     const response = await fetch(API_URL + "?t=" + Date.now());
 
@@ -12,25 +14,23 @@ async function loadScores() {
 
     data.sort((a, b) => Number(a.total) - Number(b.total));
 
-    const tbody = document.querySelector("#scoreTable tbody");
     tbody.innerHTML = "";
 
     data.forEach((player, index) => {
-      const tr = document.createElement("tr");
+      const row = document.createElement("tr");
 
-      tr.innerHTML = `
+      row.innerHTML = `
         <td>${index + 1}</td>
         <td>${player.name}</td>
         <td>${player.total}</td>
       `;
 
-      tbody.appendChild(tr);
+      tbody.appendChild(row);
     });
 
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(error);
 
-    const tbody = document.querySelector("#scoreTable tbody");
     tbody.innerHTML = `
       <tr>
         <td colspan="3">データ取得エラー</td>

@@ -23,14 +23,16 @@ async function loadScores() {
       `;
     });
 
-  } catch (e) {
-    console.error(e);
-    tbody.innerHTML = `
-      <tr>
-        <td colspan="3">データ取得エラー</td>
-      </tr>
-    `;
-  }
+} catch (e) {
+  console.error(e);
+  alert(e);
+
+  tbody.innerHTML = `
+    <tr>
+      <td colspan="3">データ取得エラー</td>
+    </tr>
+  `;
+}
 }
 
 loadScores();

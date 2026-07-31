@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbwMVH-JIdPPcbwwd8yWdtzf7B3Pqt8h3amUtPn_ZRDoNrwKsY-fIvxAxHLUlRV1dc7FfQ/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwMVH-JIdPPcbwwd8yWdtzf7B3Pqt8h3amUtPn_ZRDoNrwKsY-fIvxAxHLUlRV1dc7FQ/exec";
 
 async function loadScores() {
   try {
@@ -23,7 +23,7 @@ async function loadScores() {
     });
 
   } catch (err) {
-    console.error(err);
+    console.error("読み込みエラー:", err);
   }
 }
 

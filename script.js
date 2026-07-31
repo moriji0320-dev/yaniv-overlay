@@ -1,38 +1,31 @@
-body{
-    margin:0;
-    background:transparent;
-    overflow:hidden;
-    font-family:Arial,sans-serif;
+const API_URL = "https://script.google.com/macros/s/AKfycbwMVH-JIdPPcbwwd8yWdtzf7B3Pqt8h3amUtPn_ZRDoNrwKsY-fIvxAxHLUlRV1dc7FfQ/exec";
+
+async function loadScores() {
+  try {
+    const response = await fetch(API_URL + "?t=" + Date.now());
+    const data = await response.json();
+
+    data.sort((a, b) => Number(a.total) - Number(b.total));
+
+    const tbody = document.querySelector("#scoreTable tbody");
+    tbody.innerHTML = "";
+
+    data.forEach((player, index) => {
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${player.name}</td>
+        <td>${player.total}</td>
+      `;
+
+      tbody.appendChild(row);
+    });
+
+  } catch (err) {
+    console.error(err);
+  }
 }
 
-#overlay{
-    position:absolute;
-    top:20px;
-    left:20px;
-    background:rgba(0,0,0,0.6);
-    color:#fff;
-    padding:15px;
-    border-radius:12px;
-    min-width:260px;
-}
-
-h1{
-    margin:0 0 10px;
-    text-align:center;
-    font-size:24px;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-th,td{
-    padding:6px;
-    text-align:center;
-    border-bottom:1px solid rgba(255,255,255,0.2);
-}
-
-th{
-    color:#ffd700;
-}
+loadScores();
+setInterval(loadScores, 5000);
